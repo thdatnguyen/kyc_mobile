@@ -10,6 +10,7 @@ import '../../domain/entities/application.entities.dart';
 import '../adapter/kyc.adapter.dart';
 import '../state/kyc.state.dart';
 import 'kyc_flow_view.dart';
+import 'submission_detail_view.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -68,6 +69,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
             email: auth is AuthAuthenticated ? auth.user.email : '',
             onContinue: () => context.go(KycFlowView.path),
             onResubmit: _handleResubmit,
+            onViewSubmission: () {
+              if (latestSubmission != null) {
+                context.push(SubmissionDetailView.path, extra: latestSubmission);
+              }
+            },
           ),
       },
     );
@@ -106,6 +112,7 @@ class _Dashboard extends StatelessWidget {
     required this.email,
     required this.onContinue,
     required this.onResubmit,
+    required this.onViewSubmission,
   });
 
   final ApplicationEntity application;
@@ -113,6 +120,7 @@ class _Dashboard extends StatelessWidget {
   final String email;
   final VoidCallback onContinue;
   final VoidCallback onResubmit;
+  final VoidCallback onViewSubmission;
 
   @override
   Widget build(BuildContext context) {
@@ -142,6 +150,14 @@ class _Dashboard extends StatelessWidget {
                     status: status,
                     latestSubmission: latestSubmission,
                   ),
+                  if (latestSubmission != null) ...[
+                    const SizedBox(height: 16),
+                    OutlinedButton.icon(
+                      onPressed: onViewSubmission,
+                      icon: const Icon(Icons.visibility_outlined),
+                      label: const Text('View submitted details'),
+                    ),
+                  ],
                   if (status == 'REJECTED') ...[
                     const SizedBox(height: 12),
                     if (reasons.isNotEmpty) ...[

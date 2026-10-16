@@ -7,6 +7,7 @@ import '../../features/admin/presentation/views/admin_view.dart';
 import '../../features/application/domain/entities/application.entities.dart';
 import '../../features/application/presentation/views/home_view.dart';
 import '../../features/application/presentation/views/kyc_flow_view.dart';
+import '../../features/application/presentation/views/submission_detail_view.dart';
 import '../../features/auth/presentation/adapter/auth.adapter.dart';
 import '../../features/auth/presentation/state/auth.state.dart';
 import '../../features/auth/presentation/views/login_view.dart';
@@ -45,6 +46,11 @@ GoRouter appRouter(Ref ref) {
       GoRoute(path: RegisterView.path, builder: (_, _) => const RegisterView()),
       GoRoute(path: HomeView.path, builder: (_, _) => const HomeView()),
       GoRoute(path: KycFlowView.path, builder: (_, _) => const KycFlowView()),
+      GoRoute(
+        path: SubmissionDetailView.path,
+        builder: (_, state) =>
+            SubmissionDetailView(submission: state.extra as SubmissionEntity),
+      ),
       GoRoute(path: AdminView.path, builder: (_, _) => const AdminView()),
       GoRoute(
         path: AdminReviewDetailView.path,
