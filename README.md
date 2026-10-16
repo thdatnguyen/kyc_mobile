@@ -1,8 +1,8 @@
 # PPAC Mobile — Construction Workforce Compliance App (Flutter)
 
 Flutter (iOS + Android) app for **PPAC** (PPAC Solutions Limited) that walks workforce applicants through identity verification and gives
-admins a review queue. Talks to the [`kyc_be`](../kyc_be) REST API. See the root
-[`README.md`](../README.md) and [`docs/assumptions.md`](../docs/assumptions.md) for the shared
+admins a review queue. Talks to the `kyc_be` backend (a separate repository). See
+[`CONTEXT.md`](CONTEXT.md) and [`docs/assumptions.md`](docs/assumptions.md) for the shared
 domain model and every decision's rationale.
 
 ## Stack
@@ -19,7 +19,6 @@ domain model and every decision's rationale.
 ## Run
 
 ```bash
-cd kyc_mobile
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 
@@ -27,7 +26,7 @@ dart run build_runner build --delete-conflicting-outputs
 flutter run --dart-define=API_BASE_URL=http://localhost:5001
 ```
 
-- Start the backend first (see `../kyc_be/README.md`).
+- Start the `kyc_be` backend first (see its own README).
 - Camera/ML need a real device or simulator (ML Kit and the camera won't run in a plain `flutter test`).
 
 ## Architecture
