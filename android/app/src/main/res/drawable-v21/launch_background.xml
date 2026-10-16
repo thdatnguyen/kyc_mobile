@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PPAC Launch Splash Background with Symbol Icon -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/ppac_primary" />
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/ppac_icon_dark_green" />
+    </item>
+</layer-list>
