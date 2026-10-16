@@ -49,7 +49,7 @@ class SubmissionDetailView extends StatelessWidget {
                 _Field(label: 'Expiry date', value: document!.expiryDate),
               if (document?.imagePublicId != null) ...[
                 const SizedBox(height: 12),
-                _ImageBox(publicId: document!.imagePublicId!),
+                ..._imageBoxes(document!.imagePublicId!),
               ],
             ],
           ),
@@ -59,7 +59,7 @@ class SubmissionDetailView extends StatelessWidget {
             icon: Icons.face_outlined,
             children: [
               if (submission.selfie?.imagePublicId != null)
-                _ImageBox(publicId: submission.selfie!.imagePublicId!)
+                ..._imageBoxes(submission.selfie!.imagePublicId!)
               else
                 const Text('No selfie uploaded'),
             ],
@@ -166,4 +166,20 @@ class _ImageBox extends StatelessWidget {
       ),
     );
   }
+}
+
+/// A document may hold multiple images (e.g. National ID front + back), stored
+/// as a comma-separated list of publicIds. Split them and render each.
+List<Widget> _imageBoxes(String imagePublicId) {
+  final ids = imagePublicId
+      .split(',')
+      .map((s) => s.trim())
+      .where((s) => s.isNotEmpty)
+      .toList();
+  return [
+    for (var i = 0; i < ids.length; i++) ...[
+      if (i > 0) const SizedBox(height: 8),
+      _ImageBox(publicId: ids[i]),
+    ],
+  ];
 }
